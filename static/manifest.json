@@ -1,0 +1,23 @@
+{
+  "name": "VideoGenius AI",
+  "short_name": "VideoGenius",
+  "description": "Transform your images into captivating videos with AI",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f7fb",
+  "theme_color": "#4361ee",
+  "icons": [
+    {
+      "src": "/static/images/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/static/images/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ]
+}

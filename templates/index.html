@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VideoGenius AI - Transform Images to Videos</title>
+    <!-- Favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    <!-- PWA Support -->
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <meta name="theme-color" content="#4361ee">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='images/icon-192.png') }}">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fa-solid fa-film"></i>
+                <h1>VideoGenius<span>AI</span></h1>
+            </div>
+            <ul class="nav-links">
+                <li class="active"><a href="#"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li><a href="#"><i class="fa-solid fa-wand-magic-sparkles"></i> Templates</a></li>
+                <li><a href="#" id="help-btn"><i class="fa-solid fa-circle-question"></i> Help</a></li>
+            </ul>
+            <div class="user-menu">
+                <button class="btn btn-outline"><i class="fa-regular fa-user"></i> Sign In</button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="hero-section">
+                <h1 class="animated-title">Transform Your Images into Captivating Videos</h1>
+                <p class="animated-subtitle">Using AI to generate professional narration and seamless transitions</p>
+                <button class="btn btn-primary hero-cta" id="start-now-btn">
+                    <i class="fa-solid fa-play"></i> Start Creating Now
+                </button>
+            </div>
+
+            <div class="app-workflow">
+                <!-- Step 1: Upload Images -->
+                <div class="workflow-step" id="upload-step">
+                    <div class="step-header">
+                        <div class="step-number">1</div>
+                        <h2>Upload Images</h2>
+                    </div>
+                    <div class="step-content">
+                        <div class="upload-container" id="drop-area">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                            <p>Drag & drop your images or</p>
+                            <button class="btn btn-primary" id="browse-btn">Browse Files</button>
+                            <input type="file" id="file-input" multiple accept="image/png, image/jpeg, image/jpg" hidden>
+                            <p class="file-limit">Accepts JPG, JPEG, PNG (Max 20 images)</p>
+                        </div>
+                        <div class="uploaded-files" id="preview-container" style="display: none;">
+                            <h3>Uploaded Images <span id="file-count">(0)</span></h3>
+                            <div class="thumbnails-grid" id="thumbnails-container"></div>
+                            <div class="upload-actions">
+                                <button class="btn btn-outline" id="add-more-btn">
+                                    <i class="fa-solid fa-plus"></i> Add More
+                                </button>
+                                <button class="btn btn-danger" id="clear-btn">
+                                    <i class="fa-solid fa-trash"></i> Clear All
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Customize Settings -->
+                <div class="workflow-step" id="customize-step">
+                    <div class="step-header">
+                        <div class="step-number">2</div>
+                        <h2>Customize Your Video</h2>
+                    </div>
+                    <div class="step-content settings-panel">
+                        <div class="setting-item">
+                            <label>
+                                <i class="fa-solid fa-arrows-left-right"></i>
+                                Transition Style
+                            </label>
+                            <div class="option-selector">
+                                <button class="option-btn active" data-slide="left">
+                                    <i class="fa-solid fa-arrow-right"></i> Slide Left
+                                </button>
+                                <button class="option-btn" data-slide="right">
+                                    <i class="fa-solid fa-arrow-left"></i> Slide Right
+                                </button>
+                                <button class="option-btn" data-slide="up">
+                                    <i class="fa-solid fa-arrow-up"></i> Slide Up
+                                </button>
+                                <button class="option-btn" data-slide="down">
+                                    <i class="fa-solid fa-arrow-down"></i> Slide Down
+                                </button>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <label>
+                                <i class="fa-regular fa-clock"></i>
+                                Transition Duration
+                            </label>
+                            <div class="slider-container">
+                                <input type="range" min="0.5" max="2.0" step="0.1" value="1.0" id="transition-slider">
+                                <span id="transition-value">1.0s</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Generate Video -->
+                <div class="workflow-step" id="generate-step">
+                    <div class="step-header">
+                        <div class="step-number">3</div>
+                        <h2>Generate Your Video</h2>
+                    </div>
+                    <div class="step-content generate-panel">
+                        <p class="generate-info">
+                            <i class="fa-solid fa-robot"></i>
+                            Our AI will analyze your images, create a narrative script, and generate a professional voiceover
+                        </p>
+                        <button class="btn btn-primary btn-large" id="generate-btn" disabled>
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            Generate Video
+                        </button>
+                        <div class="processing-indicator" id="processing-indicator" style="display: none;">
+                            <div class="progress-container">
+                                <div class="progress-bar" id="progress-bar"></div>
+                            </div>
+                            <div class="processing-stages">
+                                <div class="stage" id="stage-script">
+                                    <i class="fa-solid fa-pen"></i> Generating Script...
+                                </div>
+                                <div class="stage" id="stage-voice">
+                                    <i class="fa-solid fa-microphone"></i> Creating Voiceover...
+                                </div>
+                                <div class="stage" id="stage-video">
+                                    <i class="fa-solid fa-film"></i> Building Video...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Preview & Download -->
+                <div class="workflow-step" id="preview-step" style="display: none;">
+                    <div class="step-header">
+                        <div class="step-number">4</div>
+                        <h2>Preview & Download</h2>
+                    </div>
+                    <div class="step-content">
+                        <div class="video-preview-container" id="video-container">
+                            <video id="result-video" controls></video>
+                        </div>
+                        <div class="download-actions">
+                            <button class="btn btn-success btn-large" id="download-btn">
+                                <i class="fa-solid fa-download"></i>
+                                Download Video
+                            </button>
+                            <button class="btn btn-outline btn-large" id="start-over-btn">
+                                <i class="fa-solid fa-rotate"></i>
+                                Create Another Video
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2023 VideoGenius AI. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Help Modal -->
+    <div class="modal" id="help-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>How to Use VideoGenius AI</h2>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="help-section">
+                    <h3><i class="fa-solid fa-upload"></i> Step 1: Upload Your Images</h3>
+                    <p>Drag and drop your images or use the browse button to select files from your device. You can upload up to 20 images in JPG, JPEG, or PNG format.</p>
+                </div>
+                
+                <div class="help-section">
+                    <h3><i class="fa-solid fa-sliders"></i> Step 2: Customize Settings</h3>
+                    <p>Choose how transitions work between your images. Select a slide direction and adjust the duration to create your perfect video flow.</p>
+                </div>
+                
+                <div class="help-section">
+                    <h3><i class="fa-solid fa-wand-magic-sparkles"></i> Step 3: Generate Video</h3>
+                    <p>Our AI will analyze your images and create a narrative script, which is then converted to a professional voiceover. The images, transitions, and audio are combined into a seamless video.</p>
+                </div>
+                
+                <div class="help-section">
+                    <h3><i class="fa-solid fa-download"></i> Step 4: Preview and Download</h3>
+                    <p>Watch your finished video and download it in MP4 format. You can also start over to create another video.</p>
+                </div>
+                
+                <div class="help-tip">
+                    <strong>Pro Tip:</strong> For best results, upload images that tell a cohesive story. The AI will create a more engaging narrative when the images are related.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="close-help-btn">Got it!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Offline Notification -->
+    <div class="offline-notification" id="offline-notification">
+        <i class="fa-solid fa-wifi-slash"></i>
+        <span>You are currently offline. Some features may not be available.</span>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

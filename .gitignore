@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.env
+
+# Temporary files
+temp_files/
+uploads/*
+!uploads/.gitkeep
+static/output/*
+!static/output/.gitkeep
+
+# Generated files
+*.mp4
+*.mp3
+*.wav
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>500 - Server Error | VideoGenius AI</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .error-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 70vh;
+            padding: 2rem;
+        }
+        .error-icon {
+            font-size: 5rem;
+            color: var(--danger-color);
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite alternate;
+        }
+        .error-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--danger-color), var(--accent-color));
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        .error-message {
+            font-size: 1.2rem;
+            color: var(--gray-600);
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fa-solid fa-film"></i>
+                <h1>VideoGenius<span>AI</span></h1>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <div class="error-container">
+                <i class="fa-solid fa-triangle-exclamation error-icon"></i>
+                <h1 class="error-title">500 - Server Error</h1>
+                <p class="error-message">Oops! Something went wrong on our end. We're working to fix the issue.</p>
+                <a href="/" class="btn btn-primary">
+                    <i class="fa-solid fa-house"></i> Back to Home
+                </a>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2023 VideoGenius AI. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
