@@ -1,6 +1,7 @@
 # Image to Video Creator with AI Script Generation
-
-This tool creates videos from a series of images by:
+![screencapture-127-0-0-1-5000-2025-03-09-00_37_47](https://github.com/user-attachments/assets/4b6b9241-f60c-4e0a-8313-d512e381a65f)
+This tool creates videos fro
+m a series of images by:
 1. Using AI to generate a script based on the images
 2. Converting the script to speech
 3. Creating a video with synchronized images and narration
